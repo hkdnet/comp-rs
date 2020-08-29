@@ -17,7 +17,7 @@ impl UnionFind {
     let ra = self.root(a);
     let rb = self.root(b);
     if ra != rb {
-      self.0[b] = a;
+      self.0[rb] = ra;
     }
   }
   pub fn same(self: &mut Self, a: usize, b: usize) -> bool {
@@ -49,6 +49,17 @@ mod tests {
     uf.unite(0, 1);
     uf.unite(1, 2);
     assert_eq!(uf.root(0), uf.root(2));
+
+    let mut uf = UnionFind::new(4);
+    uf.unite(0, 1);
+    uf.unite(2, 3);
+    uf.unite(1, 3);
+    assert_eq!(uf.root(0), uf.root(1));
+    assert_eq!(uf.root(0), uf.root(2));
+    assert_eq!(uf.root(0), uf.root(3));
+    assert_eq!(uf.root(1), uf.root(2));
+    assert_eq!(uf.root(1), uf.root(3));
+    assert_eq!(uf.root(2), uf.root(3));
 
     let mut uf = UnionFind::new(4);
     let v = vec![
