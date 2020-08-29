@@ -1,26 +1,23 @@
-pub struct UnionFind {
-  pub v: Vec<usize>,
-}
+pub struct UnionFind(Vec<usize>);
+
 impl UnionFind {
   pub fn new(n: usize) -> Self {
-    UnionFind {
-      v: (0..n).collect(),
-    }
+    UnionFind((0..n).collect())
   }
   pub fn root(self: &mut Self, a: usize) -> usize {
-    let tmp = self.v[a];
+    let tmp = self.0[a];
     if tmp == a {
       a
     } else {
-      self.v[a] = self.root(tmp);
-      self.v[a]
+      self.0[a] = self.root(tmp);
+      self.0[a]
     }
   }
   pub fn unite(self: &mut Self, a: usize, b: usize) {
     let ra = self.root(a);
     let rb = self.root(b);
     if ra != rb {
-      self.v[b] = a;
+      self.0[b] = a;
     }
   }
   pub fn same(self: &mut Self, a: usize, b: usize) -> bool {
