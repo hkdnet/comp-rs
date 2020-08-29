@@ -8,18 +8,13 @@ impl UnionFind {
     }
   }
   pub fn root(self: &mut Self, a: usize) -> usize {
-    let mut tmp = a;
-    let mut visited = vec![];
-    while self.v[tmp] != tmp {
-      visited.push(tmp);
-      tmp = self.v[tmp];
+    let tmp = self.v[a];
+    if tmp == a {
+      a
+    } else {
+      self.v[a] = self.root(tmp);
+      self.v[a]
     }
-
-    for i in visited {
-      self.v[i] = tmp;
-    }
-
-    tmp
   }
   pub fn unite(self: &mut Self, a: usize, b: usize) {
     let ra = self.root(a);
