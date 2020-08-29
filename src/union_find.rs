@@ -23,6 +23,11 @@ impl UnionFind {
   pub fn same(self: &mut Self, a: usize, b: usize) -> bool {
     return self.root(a) == self.root(b);
   }
+  pub fn flatten(self: &mut Self) {
+    for i in 0..self.0.len() {
+      self.root(i);
+    }
+  }
 }
 
 #[cfg(test)]
