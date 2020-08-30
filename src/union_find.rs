@@ -1,3 +1,4 @@
+use std::collections::BTreeMap;
 pub struct UnionFind(Vec<usize>);
 
 impl UnionFind {
@@ -27,6 +28,14 @@ impl UnionFind {
     for i in 0..self.0.len() {
       self.root(i);
     }
+  }
+  pub fn counts(self: &mut Self) -> BTreeMap<usize, usize> {
+    let mut c = BTreeMap::new();
+    for i in 0..self.0.len() {
+      let v = self.root(i);
+      c.entry(v).and_modify(|e| *e += 1).or_insert(1);
+    }
+    c
   }
 }
 
